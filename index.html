@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ScreenForge — Screenshot to Website</title>
+
+    <meta
+        name="description"
+        content="ScreenForge turns screenshots into responsive website code."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        [data-lucide] {
+            width: 18px;
+            height: 18px;
+            stroke-width: 1.8;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <a href="#" class="brand" id="brandHome">
+            <span class="brand-mark">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+
+            <span class="brand-name">ScreenForge</span>
+        </a>
+
+        <div class="nav-right">
+
+            <button
+                class="icon-button"
+                id="shortcutsButton"
+                title="Keyboard shortcuts"
+                aria-label="Keyboard shortcuts"
+            >
+                <i data-lucide="command"></i>
+            </button>
+
+            <button
+                class="icon-button"
+                id="settingsButton"
+                title="Settings"
+                aria-label="Settings"
+            >
+                <i data-lucide="settings-2"></i>
+            </button>
+
+        </div>
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                SCREENSHOT → WEBSITE
+            </div>
+
+            <h1>
+                Turn pixels into
+                <span>websites.</span>
+            </h1>
+
+            <p class="hero-description">
+                Drop a screenshot. ScreenForge analyzes its visual structure
+                and generates responsive HTML, CSS and JavaScript.
+            </p>
+
+        </section>
+
+
+        <!-- WORKSPACE -->
+        <section class="workspace">
+
+            <!-- LEFT -->
+            <div class="input-panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-label">01</span>
+                        <h2>Screenshot</h2>
+                    </div>
+
+                    <span class="local-badge">
+                        <i data-lucide="shield-check"></i>
+                        LOCAL
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="upload-zone"
+                    id="uploadZone"
+                    tabindex="0"
+                >
+
+                    <input
+                        type="file"
+                        id="imageInput"
+                        accept="image/png,image/jpeg,image/webp,image/gif"
+                        hidden
+                    >
+
+                    <div class="upload-empty" id="uploadEmpty">
+
+                        <div class="upload-icon">
+                            <i data-lucide="scan-line"></i>
+                        </div>
+
+                        <h3>Drop your screenshot</h3>
+
+                        <p>
+                            or click to browse your device
+                        </p>
+
+                        <span class="upload-format">
+                            PNG · JPG · WEBP
+                        </span>
+
+                    </div>
+
+
+                    <div class="upload-preview" id="uploadPreview">
+
+                        <img
+                            id="sourceImage"
+                            alt="Uploaded screenshot"
+                        >
+
+                        <div class="preview-overlay">
+
+                            <button
+                                class="small-action"
+                                id="changeImageButton"
+                            >
+                                <i data-lucide="replace"></i>
+                                Change
+                            </button>
+
+                            <button
+                                class="small-action danger"
+                                id="removeImageButton"
+                            >
+                                <i data-lucide="trash-2"></i>
+                                Remove
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OPTIONS -->
+                <div class="options">
+
+                    <div class="option-row">
+
+                        <div>
+                            <span class="option-title">Responsive layout</span>
+                            <span class="option-description">
+                                Generate desktop, tablet and mobile styles.
+                            </span>
+                        </div>
+
+                        <label class="switch">
+                            <input
+                                type="checkbox"
+                                id="responsiveToggle"
+                                checked
+                            >
+                            <span></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <div>
+                            <span class="option-title">Modernize UI</span>
+                            <span class="option-description">
+                                Add subtle 2050-style polish to the result.
+                            </span>
+                        </div>
+
+                        <label class="switch">
+                            <input
+                                type="checkbox"
+                                id="modernToggle"
+                                checked
+                            >
+                            <span></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="option-row">
+
+                        <div>
+                            <span class="option-title">Animations</span>
+                            <span class="option-description">
+                                Add lightweight interface motion.
+                            </span>
+                        </div>
+
+                        <label class="switch">
+                            <input
+                                type="checkbox"
+                                id="animationToggle"
+                                checked
+                            >
+                            <span></span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="generate-button"
+                    id="generateButton"
+                >
+
+                    <span class="generate-content">
+                        <i data-lucide="sparkles"></i>
+                        Generate Website
+                    </span>
+
+                    <span class="loading-content">
+                        <span class="spinner"></span>
+                        Analyzing screenshot...
+                    </span>
+
+                    <span class="button-arrow">
+                        <i data-lucide="arrow-up-right"></i>
+                    </span>
+
+                </button>
+
+
+                <div class="shortcut-hint">
+                    <span>CTRL</span>
+                    <b>+</b>
+                    <span>ENTER</span>
+                    to generate
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+            <div class="preview-panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-label">02</span>
+                        <h2>Preview</h2>
+                    </div>
+
+                    <div class="device-controls">
+
+                        <button
+                            class="device-button active"
+                            data-device="desktop"
+                            title="Desktop"
+                        >
+                            <i data-lucide="monitor"></i>
+                        </button>
+
+                        <button
+                            class="device-button"
+                            data-device="tablet"
+                            title="Tablet"
+                        >
+                            <i data-lucide="tablet"></i>
+                        </button>
+
+                        <button
+                            class="device-button"
+                            data-device="mobile"
+                            title="Mobile"
+                        >
+                            <i data-lucide="smartphone"></i>
+                        </button>
+
+                        <button
+                            class="device-button"
+                            id="fullscreenButton"
+                            title="Fullscreen"
+                        >
+                            <i data-lucide="maximize"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="browser-window"
+                    id="browserWindow"
+                >
+
+                    <div class="browser-bar">
+
+                        <div class="browser-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="browser-address">
+                            screenforge.local
+                        </div>
+
+                        <div class="browser-actions">
+                            <i data-lucide="lock"></i>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="preview-frame desktop"
+                        id="previewFrame"
+                    >
+
+                        <iframe
+                            id="previewIframe"
+                            title="Generated website preview"
+                            sandbox="allow-scripts"
+                        ></iframe>
+
+                        <div
+                            class="preview-placeholder"
+                            id="previewPlaceholder"
+                        >
+
+                            <div class="placeholder-symbol">
+                                <i data-lucide="scan-search"></i>
+                            </div>
+
+                            <h3>Your website appears here</h3>
+
+                            <p>
+                                Upload a screenshot and generate your first build.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CODE -->
+                <div class="code-section">
+
+                    <div class="code-heading">
+
+                        <div>
+                            <span class="section-label">03</span>
+                            <h2>Generated code</h2>
+                        </div>
+
+                        <button
+                            class="copy-button"
+                            id="copyButton"
+                            disabled
+                        >
+                            <i data-lucide="copy"></i>
+                            Copy Code
+                        </button>
+
+                    </div>
+
+
+                    <div class="code-editor">
+
+                        <div class="code-tabs">
+
+                            <button
+                                class="code-tab active"
+                                data-code="html"
+                            >
+                                HTML
+                            </button>
+
+                            <button
+                                class="code-tab"
+                                data-code="css"
+                            >
+                                CSS
+                            </button>
+
+                            <button
+                                class="code-tab"
+                                data-code="js"
+                            >
+                                JS
+                            </button>
+
+                        </div>
+
+
+                        <div class="code-body">
+
+                            <pre
+                                id="htmlCode"
+                                class="code-content active"
+                            ></pre>
+
+                            <pre
+                                id="cssCode"
+                                class="code-content"
+                            ></pre>
+
+                            <pre
+                                id="jsCode"
+                                class="code-content"
+                            ></pre>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="download-row">
+
+                        <button
+                            class="download-button"
+                            id="downloadHtml"
+                            disabled
+                        >
+                            <i data-lucide="file-code-2"></i>
+                            HTML
+                        </button>
+
+                        <button
+                            class="download-button"
+                            id="downloadCss"
+                            disabled
+                        >
+                            <i data-lucide="file-code"></i>
+                            CSS
+                        </button>
+
+                        <button
+                            class="download-button"
+                            id="downloadJs"
+                            disabled
+                        >
+                            <i data-lucide="file-json-2"></i>
+                            JavaScript
+                        </button>
+
+                        <button
+                            class="download-button primary-download"
+                            id="downloadZip"
+                            disabled
+                        >
+                            <i data-lucide="package"></i>
+                            Download ZIP
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+
+            <span>
+                ScreenForge
+            </span>
+
+            <span class="footer-line"></span>
+
+            <span>
+                Built by <strong>Arb</strong>
+            </span>
+
+            <span class="footer-line"></span>
+
+            <span>
+                2050 UI ENGINE
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- SETTINGS -->
+<div
+    class="settings-overlay"
+    id="settingsOverlay"
+>
+
+    <aside class="settings-drawer">
+
+        <div class="settings-header">
+
+            <div>
+                <span class="settings-eyebrow">
+                    SCREENFORGE
+                </span>
+
+                <h2>Settings</h2>
+            </div>
+
+            <button
+                class="icon-button"
+                id="closeSettings"
+            >
+                <i data-lucide="x"></i>
+            </button>
+
+        </div>
+
+
+        <div class="settings-content">
+
+            <!-- THEMES -->
+            <div class="settings-group">
+
+                <div class="settings-title">
+                    Appearance
+                </div>
+
+                <div class="theme-grid">
+
+                    <button
+                        class="theme-option active"
+                        data-theme="dark"
+                    >
+                        <span class="theme-preview theme-dark"></span>
+                        <span>Dark</span>
+                    </button>
+
+                    <button
+                        class="theme-option"
+                        data-theme="light"
+                    >
+                        <span class="theme-preview theme-light"></span>
+                        <span>Light</span>
+                    </button>
+
+                    <button
+                        class="theme-option"
+                        data-theme="midnight"
+                    >
+                        <span class="theme-preview theme-midnight"></span>
+                        <span>Midnight</span>
+                    </button>
+
+                    <button
+                        class="theme-option"
+                        data-theme="amoled"
+                    >
+                        <span class="theme-preview theme-amoled"></span>
+                        <span>AMOLED</span>
+                    </button>
+
+                    <button
+                        class="theme-option"
+                        data-theme="cyber"
+                    >
+                        <span class="theme-preview theme-cyber"></span>
+                        <span>Cyber</span>
+                    </button>
+
+                    <button
+                        class="theme-option"
+                        data-theme="paper"
+                    >
+                        <span class="theme-preview theme-paper"></span>
+                        <span>Paper</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACCENT -->
+            <div class="settings-group">
+
+                <div class="settings-title">
+                    Accent color
+                </div>
+
+                <div class="accent-row">
+
+                    <button
+                        class="accent-color active"
+                        data-accent="#8b5cf6"
+                        style="--accent:#8b5cf6"
+                    ></button>
+
+                    <button
+                        class="accent-color"
+                        data-accent="#06b6d4"
+                        style="--accent:#06b6d4"
+                    ></button>
+
+                    <button
+                        class="accent-color"
+                        data-accent="#3b82f6"
+                        style="--accent:#3b82f6"
+                    ></button>
+
+                    <button
+                        class="accent-color"
+                        data-accent="#22c55e"
+                        style="--accent:#22c55e"
+                    ></button>
+
+                    <button
+                        class="accent-color"
+                        data-accent="#f59e0b"
+                        style="--accent:#f59e0b"
+                    ></button>
+
+                    <button
+                        class="accent-color"
+                        data-accent="#ef4444"
+                        style="--accent:#ef4444"
+                    ></button>
+
+                    <input
+                        type="color"
+                        id="customAccent"
+                        value="#8b5cf6"
+                        title="Custom accent"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- FONT -->
+            <div class="settings-group">
+
+                <div class="settings-title">
+                    Typography
+                </div>
+
+                <select
+                    class="settings-select"
+                    id="fontSelect"
+                >
+                    <option value="Inter">Inter</option>
+                    <option value="Manrope">Manrope</option>
+                    <option value="Space Grotesk">Space Grotesk</option>
+                    <option value="JetBrains Mono">JetBrains Mono</option>
+                    <option value="DM Mono">DM Mono</option>
+                </select>
+
+                <div class="range-row">
+
+                    <div>
+                        <span>Font size</span>
+                    </div>
+
+                    <output id="fontSizeValue">
+                        100%
+                    </output>
+
+                </div>
+
+                <input
+                    type="range"
+                    id="fontSizeRange"
+                    min="85"
+                    max="115"
+                    value="100"
+                >
+
+            </div>
+
+
+            <!-- EFFECTS -->
+            <div class="settings-group">
+
+                <div class="settings-title">
+                    Effects
+                </div>
+
+                <div class="range-row">
+
+                    <span>Glow intensity</span>
+
+                    <output id="glowValue">
+                        60%
+                    </output>
+
+                </div>
+
+                <input
+                    type="range"
+                    id="glowRange"
+                    min="0"
+                    max="100"
+                    value="60"
+                >
+
+
+                <div class="range-row">
+
+                    <span>Glass intensity</span>
+
+                    <output id="glassValue">
+                        35%
+                    </output>
+
+                </div>
+
+                <input
+                    type="range"
+                    id="glassRange"
+                    min="0"
+                    max="100"
+                    value="35"
+                >
+
+
+                <div class="range-row">
+
+                    <span>Corner radius</span>
+
+                    <output id="radiusValue">
+                        16px
+                    </output>
+
+                </div>
+
+                <input
+                    type="range"
+                    id="radiusRange"
+                    min="0"
+                    max="30"
+                    value="16"
+                >
+
+            </div>
+
+
+            <!-- DENSITY -->
+            <div class="settings-group">
+
+                <div class="settings-title">
+                    Interface density
+                </div>
+
+                <div class="segmented">
+
+                    <button data-density="compact">
+                        Compact
+                    </button>
+
+                    <button
+                        data-density="comfortable"
+                        class="active"
+                    >
+                        Comfortable
+                    </button>
+
+                    <button data-density="spacious">
+                        Spacious
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- MOTION -->
+            <div class="settings-group">
+
+                <div class="settings-title">
+                    Behavior
+                </div>
+
+                <div class="setting-toggle-row">
+
+                    <span>
+                        Smooth animations
+                    </span>
+
+                    <label class="switch">
+                        <input
+                            type="checkbox"
+                            id="smoothToggle"
+                            checked
+                        >
+                        <span></span>
+                    </label>
+
+                </div>
+
+                <div class="setting-toggle-row">
+
+                    <span>
+                        Reduce motion
+                    </span>
+
+                    <label class="switch">
+                        <input
+                            type="checkbox"
+                            id="reduceMotionToggle"
+                        >
+                        <span></span>
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="reset-button"
+                id="resetSettings"
+            >
+                <i data-lucide="rotate-ccw"></i>
+                Reset settings
+            </button>
+
+        </div>
+
+
+        <div class="settings-footer">
+            ScreenForge · Built by Arb
+        </div>
+
+    </aside>
+
+</div>
+
+
+<!-- SHORTCUTS -->
+<div
+    class="modal-overlay"
+    id="shortcutsModal"
+>
+
+    <div class="shortcuts-modal">
+
+        <div class="modal-header">
+
+            <div>
+                <span class="settings-eyebrow">
+                    KEYBOARD
+                </span>
+
+                <h2>Shortcuts</h2>
+            </div>
+
+            <button
+                class="icon-button"
+                id="closeShortcuts"
+            >
+                <i data-lucide="x"></i>
+            </button>
+
+        </div>
+
+
+        <div class="shortcut-list">
+
+            <div>
+                <span>Generate</span>
+                <kbd>Ctrl</kbd>
+                <b>+</b>
+                <kbd>Enter</kbd>
+            </div>
+
+            <div>
+                <span>Settings</span>
+                <kbd>Ctrl</kbd>
+                <b>+</b>
+                <kbd>,</kbd>
+            </div>
+
+            <div>
+                <span>Close</span>
+                <kbd>Esc</kbd>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+<div
+    class="toast"
+    id="toast"
+>
+    <i data-lucide="check"></i>
+    <span id="toastText">Done</span>
+</div>
+
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
